@@ -1,0 +1,12 @@
+---
+# tasks file for httpd
+- name: Install httpd
+  yum:
+    name: "{{ pkg }}"
+    state: present
+
+- name: Copying index.html
+  copy:
+    src: index.html
+    dest: "{{ dest }}"
+  notify: start httpd

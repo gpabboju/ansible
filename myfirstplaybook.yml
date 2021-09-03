@@ -1,0 +1,9 @@
+---
+- hosts: dev
+  become: true
+  gather_facts: false
+  tasks:
+  - name: copy a file to remote hosts
+    copy:
+      src: ./copy.txt
+      dest: /tmp/

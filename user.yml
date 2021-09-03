@@ -1,0 +1,24 @@
+---
+- hosts: test
+  become: true
+  gather_facts: no
+  vars_prompt:
+  - name: "username"
+    prompt: "Please enter the username"
+    private: no 
+  
+  tasks:
+  - include_vars: password.yml
+  - name: "Creating user"
+    user:
+      name: "{{ username }}"
+      shell: "/bin/bash"
+      state: present
+      password: "{{ password | password_hash('sha512') }}"
+
+
+- include: myfirstplaybook.yml
+- import_playbook: myfirstplaybook.yml
+
+
+

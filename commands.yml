@@ -1,0 +1,33 @@
+--
+- hosts: all
+  become: true
+  gather_facts: no
+
+  tasks:
+  - name: Filesystem sizes
+    command: df -h
+    register: disk
+#  - debug: var=disk.stdout_lines
+  - local_action: copy content={{ disk | to_nice_json }} dest=/tmp/disk.txt
+ 
+  - name: Memory
+    command: free -m
+    register: mem
+#  - debug: var=mem.stdout_lines 
+ 
+  - name: OS version
+    command: uname -a
+    register: ver
+#  - debug: var=ver.stdout_lines
+
+  - name: Release
+    command: cat /etc/redhat-release
+    register: rel
+#  - debug: var=rel.stdout_lines
+
+  - name: replace the file
+    replace:
+      path: /tmp/formac.cfg
+      regexp: 'localhost'
+      replace: 'formachost'
+      backup: yes

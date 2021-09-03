@@ -1,0 +1,20 @@
+---
+- hosts: dev
+  become: true
+  gather_facts: false
+
+  tasks:
+  - name: copy the file
+    copy:
+      src: index.html
+      dest: /var/www/html
+
+    notify: 
+      - Httpd restart
+
+  handlers:
+  - name: Httpd restart
+    service:
+       name: httpd
+       state: restarted
+

@@ -1,0 +1,5 @@
+---
+# vars file for httpd
+pkg: httpd
+dest: /var/www/html
+

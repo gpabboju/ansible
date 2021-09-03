@@ -1,0 +1,9 @@
+---
+- hosts: server2
+  become: true
+  gather_facts: true
+
+  tasks:
+  - name: "reboot the server"
+    command: init 6
+    when: ansible_os_family == "RedHat"
